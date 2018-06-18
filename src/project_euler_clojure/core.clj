@@ -2,6 +2,7 @@
   (:require [project-euler-clojure
              helloworld
              problem1
+             problem2
              ]))
 
 (defn get-project-ns []

@@ -11,5 +11,5 @@
 )
 
 (defn solve []
-  (println (solve-fn))
+  (println "Problem 1:" (solve-fn))
 )
