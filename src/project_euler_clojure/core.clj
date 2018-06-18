@@ -21,5 +21,6 @@
 
 
 (defn -main [& args]
-  (doseq [solver (get-problem-solvers (get-project-ns))] (solver))
+  (doseq [solver (get-problem-solvers (get-project-ns))]
+    (solver))
 )

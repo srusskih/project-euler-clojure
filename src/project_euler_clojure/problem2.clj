@@ -9,12 +9,14 @@
            (fibonaci-numbers b (+ a b)))))
 )
 
-(defn solve-fn []
+(defn solve-fn
+  []
   (apply + 
-         (filter #(< % 4000000N)
          (filter even? 
-                 (take 1000000N (fibonaci-numbers)))))
+                 (take-while #(< % 4000000N) (fibonaci-numbers))))
 )
 
-(defn solve []
-  (println "Problem 2:" (solve-fn)))
+(defn solve
+  []
+  (println "Problem 2:" (solve-fn))
+)
