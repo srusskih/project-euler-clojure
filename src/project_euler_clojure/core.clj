@@ -1,7 +1,8 @@
 (ns project-euler-clojure.core
   (:require [project-euler-clojure
              helloworld
-             problem1]))
+             problem1
+             ]))
 
 (defn get-project-ns []
     (filter #(clojure.string/starts-with?
