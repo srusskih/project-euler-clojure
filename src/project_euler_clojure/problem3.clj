@@ -1,33 +1,12 @@
-; https://projecteuler.net/problem=2
+; https://projecteuler.net/problem=3
 (ns project-euler-clojure.problem3)
 
-(defn get-a [x y] (+ x y))
-(defn get-b [x y] (- x y))
-(defn get-s [n] (Math/ceil (Math/sqrt n)))
-(defn get-y [s k n] (Math/sqrt (- (Math/pow (+ s k) 2) n)))
-(defn get-x [s k] (+ s k))
 (defn no-rem [y] (= 0.0 (rem y 1)))
-
-(defn get-multipliers
-  [n]
-  (def s (get-s n))
-  (loop [k 1]
-    (def y (get-y s k n))
-    (def x (get-x s k))
-    (def a (get-a x y))
-    (def b (get-b x y))
-    (println k x y a b)
-    (cond 
-      (no-rem y) [a b]
-      (no-rem (Math/sqrt n)) [(Math/sqrt n) (Math/sqrt n)]
-      (even? (int n)) [2 (/ n 2)]
-      (some (partial <= n) [x y]) [n 1]
-      :else (recur (inc k)))))
 
 (defn ferma
   [n]
   (cond
-    (even? (int n)) [(/ n 2) 2]
+    (even? (bigint n)) [(/ n 2) 2]
     :else
       (loop [k 0]
         (def a (+ (Math/ceil (Math/sqrt n)) k))
@@ -39,23 +18,35 @@
          (recur (inc k))))))
 
 (defn trie 
+  "Build a multipliers tree.
+  Node is a factors (multipliers) of a number.
+  Leaf is a prime factor.
+  "
   [n] 
   (tree-seq
     ; branch?
     (fn [a]
       ; (println ":branch?" a)
-      (not= 1 (int (apply min (ferma a)))))
+      (not= 1.0 (apply min a)))
     ; generate children
     (fn [a]
       ; (println ":get-children" a)
-      (ferma a))
+      (map ferma a))
     n))
 
-(defn solve-fn [] (
-  (max (rest (trie 89755))  ; 600851475143
-))
+(defn leafs
+  "Collect prime factors from a multipliers tree."
+  [trie-seq]
+  (filter (fn [[a b]] (= 1.0 (min a b))) 
+          trie-seq))
+
+(defn solve-fn 
+  "Find maximum prime factor of 600851475143."
+  [] 
+  (int (apply max 
+           (map first
+                (leafs (trie (ferma 600851475143N))))) ))
 
 (defn solve
   []
-  (println "Problem 3:" (solve-fn))
-)
+  (println "Problem 3:" (solve-fn)))

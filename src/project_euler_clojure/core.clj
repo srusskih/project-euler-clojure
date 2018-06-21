@@ -3,6 +3,7 @@
              helloworld
              problem1
              problem2
+             problem3
              ]))
 
 (defn get-project-ns []
