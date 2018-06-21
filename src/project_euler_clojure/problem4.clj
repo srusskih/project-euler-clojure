@@ -1,12 +1,11 @@
+; https://projecteuler.net/problem=4
 (ns project-euler-clojure.problem4
   (:require [clojure.string :as string]))
 
 (defn is-polindrom
   [d]
   (def sd (str d))
-  (-> sd
-      string/reverse
-      (= sd)))
+  (= (string/reverse sd) sd))
 
 (defn solve-fn
   []

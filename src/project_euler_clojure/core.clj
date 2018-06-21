@@ -5,13 +5,15 @@
              problem2
              problem3
              problem4
+             problem5
              ]))
 
 (defn get-project-ns []
-    (filter #(clojure.string/starts-with?
-               (name (ns-name %))
-               "project-euler-clojure.")
-            (all-ns)))
+    (sort-by #(name (ns-name %))
+      (filter #(clojure.string/starts-with?
+                 (name (ns-name %))
+                 "project-euler-clojure.")
+              (all-ns))))
 
 (defn resolve-solver [target-ns]
   (ns-resolve target-ns (symbol "solve")))
@@ -23,6 +25,5 @@
 
 
 (defn -main [& args]
-  (doseq [solver (get-problem-solvers (get-project-ns))]
-    (solver))
+  (doall (map #(%) (get-problem-solvers (get-project-ns))))
 )
