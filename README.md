@@ -4,7 +4,7 @@ My Clojure education project.
 
 ## Usage
 
-I hope you will never use it.
+I hope you will never use it. I hope
 
 ## License
 
